@@ -20,7 +20,7 @@ class AwakePassGen {
         lowercase: false,
         numbers: false,
         symbols: false,
-      }
+      };
 
       this.#init();
     }
@@ -67,26 +67,72 @@ class AwakePassGen {
       this.$dotRange.addEventListener( 'mouseup', this.onMouseUp );
       document.addEventListener( 'mouseup', this.onMouseUp );
 
-      this.$optionCheckboxes.forEach(item => item.addEventListener('change', this.checkboxOptionsHandler));
+      this.$optionCheckboxes.forEach( item => item.addEventListener( 'change', this.checkboxOptionsHandler ) );
     }
   }
 
-  generatePassword() {
-    let length = this.$lengthVal,
-    string = "abcdefghijklmnopqrstuvwxyz", //to upper
-    numeric = '0123456789',
-    symbols = '!@#$%^&*()_+~`|}{[]\:;?><,./-=',
-    retVal = "";
+  generatePassword () {
+    let stringLowercase = 'abcdefghijklmnopqrstuvwxyz',
+      stringUpperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      numeric = '0123456789',
+      symbols = '!@#$%^&*()_+~`|}{[]:\\;?><,./-=';
 
-    console.log(length);
-    for (let i = 0, n = string.length; i < length; ++i) {
-      if (this.$options.uppercase) {
-        retVal += string.charAt(Math.floor(Math.random() * n)).toUpperCase();
-      }else {
-        retVal += string.charAt(Math.floor(Math.random() * n));
+    let lowAndUpCase = stringLowercase + stringUpperCase,
+
+      numericAndLowerCase = stringLowercase + numeric,
+      numericAndUpperCase = stringUpperCase + numeric,
+      numericAndLowAndUpCase = lowAndUpCase + numeric,
+
+      symbolsAndLowerCase = stringLowercase + symbols,
+      symbolsAndUpperCase = stringUpperCase + symbols,
+      symbolsAndLowAndUpCase = lowAndUpCase + symbols,
+
+      numericAndSymbols = symbols + numeric,
+      numericAndSymbolsAndLowCase = symbolsAndLowerCase + numeric,
+      numericAndSymbolsAndUpCase = symbolsAndUpperCase + numeric,
+
+      allChar = symbolsAndLowerCase + numericAndSymbols,
+
+      password = '';
+
+    for ( let i = 0; i < +this.$lengthVal; i++ ) {
+
+      if ( this.$options.uppercase && this.$options.numbers && this.$options.symbols && this.$options.lowercase ) {
+        password += allChar.charAt( Math.floor( Math.random() * allChar.length ) );
+      } else if ( this.$options.uppercase && !this.$options.lowercase && !this.$options.numbers && !this.$options.symbols ) {
+        password += stringUpperCase.charAt( Math.floor( Math.random() * stringUpperCase.length ) );
+      } else if ( this.$options.lowercase && !this.$options.uppercase && !this.$options.numbers && !this.$options.symbols ) {
+        password += stringLowercase.charAt( Math.floor( Math.random() * stringLowercase.length ) );
+      } else if ( this.$options.numbers && !this.$options.uppercase && !this.$options.lowercase && !this.$options.symbols ) {
+        password += numeric.charAt( Math.floor( Math.random() * numeric.length ) );
+      } else if ( this.$options.symbols && !this.$options.uppercase && !this.$options.lowercase && !this.$options.numbers ) {
+        password += symbols.charAt( Math.floor( Math.random() * symbols.length ) );
+      } else if ( this.$options.uppercase && this.$options.lowercase && !this.$options.numbers && !this.$options.symbols ) {
+        password += lowAndUpCase.charAt( Math.floor( Math.random() * lowAndUpCase.length ) );
+      } else if ( this.$options.numbers && this.$options.lowercase && !this.$options.uppercase && !this.$options.symbols ) {
+        password += numericAndLowerCase.charAt( Math.floor( Math.random() * numericAndLowerCase.length ) );
+      } else if ( this.$options.numbers && this.$options.uppercase && !this.$options.lowercase && !this.$options.symbols ) {
+        password += numericAndUpperCase.charAt( Math.floor( Math.random() * numericAndUpperCase.length ) );
+      } else if ( this.$options.numbers && this.$options.uppercase && this.$options.lowercase && !this.$options.symbols ) {
+        password += numericAndLowAndUpCase.charAt( Math.floor( Math.random() * numericAndLowAndUpCase.length ) );
+      } else if ( this.$options.symbols && this.$options.lowercase && !this.$options.numbers && !this.$options.uppercase ) {
+        password += symbolsAndLowerCase.charAt( Math.floor( Math.random() * symbolsAndLowerCase.length ) );
+      } else if ( this.$options.symbols && this.$options.uppercase && !this.$options.numbers && !this.$options.lowercase ) {
+        password += symbolsAndUpperCase.charAt( Math.floor( Math.random() * symbolsAndUpperCase.length ) );
+      } else if ( this.$options.symbols && this.$options.uppercase && this.$options.lowercase && !this.$options.numbers ) {
+        password += numericAndSymbols.charAt( Math.floor( Math.random() * numericAndSymbols.length ) );
+      } else if ( this.$options.symbols && this.$options.uppercase && this.$options.lowercase && !this.$options.numbers ) {
+        password += symbolsAndLowAndUpCase.charAt( Math.floor( Math.random() * symbolsAndLowAndUpCase.length ) );
+      } else if ( this.$options.symbols && this.$options.numbers && this.$options.lowercase && !this.$options.uppercase ) {
+        password += numericAndSymbolsAndLowCase.charAt( Math.floor( Math.random() * numericAndSymbolsAndLowCase.length ) );
+      } else if ( this.$options.symbols && this.$options.numbers && this.$options.uppercase && !this.$options.lowercase ) {
+        password += numericAndSymbolsAndUpCase.charAt( Math.floor( Math.random() * numericAndSymbolsAndUpCase.length ) );
+      } else {
+        password += lowAndUpCase.charAt( Math.floor( Math.random() * lowAndUpCase.length ) );
       }
     }
-    return retVal;
+
+    return password;
   }
 
   onMouseDown ( e ) {
@@ -171,17 +217,18 @@ class AwakePassGen {
     this.$generatedInput.value = this.generatePassword();
   }
 
-  #checkerCheckboxes(type, checked) {
+  #checkerCheckboxes ( type, checked ) {
     if ( type ) {
-      this.$options[type] = checked
+      this.$options[ type ] = checked;
     }
   }
 
-  checkboxOptionsHandler(e) {
-    const {type} = e.target.dataset;
+  checkboxOptionsHandler ( e ) {
+    const { type } = e.target.dataset;
     let checked = e.target.checked;
 
-    this.#checkerCheckboxes(type, checked)
+    this.#checkerCheckboxes( type, checked );
+    this.$generatedInput.value = this.generatePassword();
   }
 
   getTemplate () {
