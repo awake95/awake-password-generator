@@ -71,27 +71,37 @@ class AwakePassGen {
     }
   }
 
+  shuffle(arr){
+    let j, temp;
+    for(let i = arr.length - 1; i > 0; i--){
+      j = Math.floor(Math.random()*(i + 1));
+      temp = arr[j];
+      arr[j] = arr[i];
+      arr[i] = temp;
+    }
+    return arr;
+  }
+
   generatePassword () {
     let stringLowercase = 'abcdefghijklmnopqrstuvwxyz',
       stringUpperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
       numeric = '0123456789',
       symbols = '!@#$%^&*()_+~`|}{[]:\\;?><,./-=';
+    
+    let lowAndUpCase = this.shuffle((stringLowercase + stringUpperCase).split('')).join(''),
+      numericAndLowerCase = this.shuffle((stringLowercase + numeric).split('')).join(''),
+      numericAndUpperCase = this.shuffle((stringUpperCase + numeric).split('')).join(''),
+      numericAndLowAndUpCase = this.shuffle((lowAndUpCase + numeric).split('')).join(''),
 
-    let lowAndUpCase = stringLowercase + stringUpperCase,
+      symbolsAndLowerCase = this.shuffle((stringLowercase + symbols).split('')).join(''),
+      symbolsAndUpperCase = this.shuffle((stringUpperCase + symbols).split('')).join(''),
+      symbolsAndLowAndUpCase = this.shuffle((lowAndUpCase + symbols).split('')).join(''),
 
-      numericAndLowerCase = stringLowercase + numeric,
-      numericAndUpperCase = stringUpperCase + numeric,
-      numericAndLowAndUpCase = lowAndUpCase + numeric,
+      numericAndSymbols = this.shuffle((symbols + numeric).split('')).join(''),
+      numericAndSymbolsAndLowCase = this.shuffle((symbolsAndLowerCase + numeric).split('')).join(''),
+      numericAndSymbolsAndUpCase = this.shuffle((symbolsAndUpperCase + numeric).split('')).join(''),
 
-      symbolsAndLowerCase = stringLowercase + symbols,
-      symbolsAndUpperCase = stringUpperCase + symbols,
-      symbolsAndLowAndUpCase = lowAndUpCase + symbols,
-
-      numericAndSymbols = symbols + numeric,
-      numericAndSymbolsAndLowCase = symbolsAndLowerCase + numeric,
-      numericAndSymbolsAndUpCase = symbolsAndUpperCase + numeric,
-
-      allChar = symbolsAndLowerCase + numericAndSymbols,
+      allChar = this.shuffle((symbolsAndLowerCase + numericAndSymbols).split('')).join(''),
 
       password = '';
 
