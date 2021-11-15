@@ -1,0 +1,3 @@
+const passGen = new AwakePassGen('#awake-password-generator');
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlcyI6WyJtYWluLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImNvbnN0IHBhc3NHZW4gPSBuZXcgQXdha2VQYXNzR2VuKCcjYXdha2UtcGFzc3dvcmQtZ2VuZXJhdG9yJyk7XG4iXSwiZmlsZSI6Im1haW4uanMifQ==

@@ -1,0 +1,39 @@
+{
+  "name": "gulp-wp",
+  "private": true,
+  "scripts": {
+    "start": "gulp",
+    "build": "gulp build --prod=true",
+    "compile:css": "gulp scss --prod=true",
+    "compile:js": "gulp js --prod=true",
+    "preinstall": "npx npm-force-resolutions"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "autoprefixer": "^10.3.7",
+    "babel": "^6.23.0",
+    "cssnano": "^5.0.8",
+    "del": "^6.0.0",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-if": "^3.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^9.0.1",
+    "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify": "^3.0.2",
+    "postcss": "^8.3.10",
+    "postcss-combine-media-query": "^1.0.1",
+    "sass": "^1.42.1",
+    "yargs": "^17.2.1"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.4"
+  },
+  "browserslist": [
+    "last 5 versions",
+    "> 1%",
+    "IE 10"
+  ]
+}
